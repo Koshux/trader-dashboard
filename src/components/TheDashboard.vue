@@ -52,16 +52,18 @@
             </span>
           </div>
         </template>
-        <BarChart />
+
+        <LineChart />
       </el-card>
     </el-col>
   </el-row>
 </template>
 
 <script setup lang="ts">
-import BarChart from '@/components/BarChart.vue'
+import LineChart from '@/components/LineChart.vue'
 import { computed, reactive, ref, type ComputedRef, onMounted } from 'vue'
 import type { CurrencyPair } from '@/types/CurrencyPair'
+// import CurrencyFlag from 'currency-flags'
 
 const currentPrice = ref(0)
 const priceDifference = ref(0)
