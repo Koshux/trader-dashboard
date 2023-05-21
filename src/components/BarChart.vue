@@ -1,26 +1,19 @@
 <template>
   <Line
     id="chart-container"
+    size="lg"
     :options="chartOptions"
     :data="chartData"
   />
-  Hi.
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import {
   Chart as ChartJS,
-  CategoryScale,
-  // LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
+  registerables
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
-
 
 const chartData = ref({
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -45,15 +38,7 @@ const chartOptions = ref({
   }
 })
 
-onMounted(() => {
-  ChartJS.register(
-    CategoryScale,
-    // LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  )
+onBeforeMount(() => {
+  ChartJS.register(...registerables)
 })
 </script>
