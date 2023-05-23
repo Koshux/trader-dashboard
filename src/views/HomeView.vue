@@ -1,30 +1,38 @@
 <template>
-  <el-container style="height: 100vh;">
-    <el-aside width="200px">
-      <el-menu default-active="1" class="el-menu-vertical">
-        <el-menu-item index="1">Home</el-menu-item>
-      </el-menu>
-    </el-aside>
-    <main ref="chartContainer">
+  <el-row :span="12">
+    <el-col class="grid-content">
+      <TheHeading />
+    </el-col>
+  </el-row>
+
+  <el-row :span="24">
+    <el-col class="grid-content">
       <TheDashboard />
-    </main>
-  </el-container>
+    </el-col>
+  </el-row>
 </template>
 
 <script setup lang="ts">
 import TheDashboard from '@/components/TheDashboard.vue'
+import TheHeading from '@/components/TheHeading.vue'
 </script>
 
 <style scoped>
-main {
-  padding: 20px;
-  background-color: #fff;
-  overflow: auto;
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
+.el-col {
+  border-radius: 4px;
 }
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  padding: 30px;
+}
+
 </style>
-

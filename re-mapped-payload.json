@@ -1,0 +1,135 @@
+{
+  "available_currencies": [{
+    "value": "AED",
+    "label": "UAE Dirham"
+  }, {
+    "value": "ARS",
+    "label": "Argentine Peso"
+  }, {
+    "value": "AUD",
+    "label": "Australian Dollar"
+  }, {
+    "value": "BHD",
+    "label": "Bahraini Dinar"
+  }, {
+    "value": "BRL",
+    "label": "Brazilian Real"
+  }, {
+    "value": "CAD",
+    "label": "Canadian Dollar"
+  }, {
+    "value": "CHF",
+    "label": "Swiss Franc"
+  }, {
+    "value": "CLP",
+    "label": "Chilean Peso"
+  }, {
+    "value": "CNY",
+    "label": "Chinese Yuan"
+  }, {
+    "value": "COP",
+    "label": "Colombian Peso"
+  }, {
+    "value": "CZK",
+    "label": "Czech Koruna"
+  }, {
+    "value": "DKK",
+    "label": "Danish Krone"
+  },
+  { "value": "EUR",
+    "label": "Euro"
+  }, {
+    "value": "GBP",
+    "label": "British Pound Sterling"
+  }, {
+    "value": "HKD",
+    "label": "Hong Kong Dollar"
+  }, {
+    "value": "HRK",
+    "label": "Croatian Kuna"
+  }, {
+    "value": "HUF",
+    "label": "Hungarian Forint"
+  }, {
+    "value": "IDR",
+    "label": "Indonesian Rupiah"
+  }, {
+    "value": "ILS",
+    "label": "Israeli New Sheqel"
+  }, {
+    "value": "INR",
+    "label": "Indian Rupee"
+  }, {
+    "value": "ISK",
+    "label": "Icelandic Krona"
+  }, {
+    "value": "JPY",
+    "label": "Japanese Yen"
+  }, {
+    "value": "KRW",
+    "label": "South Korean Won"
+  }, {
+    "value": "KWD",
+    "label": "Kuwaiti Dinar"
+  }, {
+    "value": "MAD",
+    "label": "Moroccan Dirham"
+  }, {
+    "value": "MXN",
+    "label": "Mexican Peso"
+  }, {
+    "value": "MYR",
+    "label": "Malaysian Ringgit"
+  }, {
+    "value": "NGN",
+    "label": "Nigerean Naira"
+  }, {
+    "value": "NOK",
+    "label": "Norwegian Krone"
+  }, {
+    "value": "NZD",
+    "label": "New Zealand Dollar"
+  }, {
+    "value": "OMR",
+    "label": "Omani Rial"
+  }, {
+    "value": "PEN",
+    "label": "Peruvian Nuevo Sol"
+  }, {
+    "value": "PHP",
+    "label": "Philippine Peso"
+  }, {
+    "value": "PLN",
+    "label": "Polish Zloty"
+  }, {
+    "value": "RON",
+    "label": "Romanian Leu"
+  }, {
+    "value": "RUB",
+    "label": "Russian Ruble"
+  }, {
+    "value": "SEK",
+    "label": "Swedish Krona"
+  }, {
+    "value": "SGD",
+    "label": "Singapore Dollar"
+  }, {
+    "value": "THB",
+    "label": "Thai Baht"
+  }, {
+    "value": "TRY",
+    "label": "Turkish Lira"
+  }, {
+    "value": "TWD",
+    "label": "Taiwanese Dollar"
+  }, {
+    "value": "USD",
+    "label": "US Dollar"
+  }, {
+    "value": "VND",
+    "label": "Vietnamese Dong"
+  }, {
+    "value": "ZAR",
+    "label": "South African Rand"
+  }]
+}

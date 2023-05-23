@@ -9,12 +9,31 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BackupCardHeader: typeof import('./src/components/backup-card-header.vue')['default']
+    BarChart: typeof import('./src/components/BarChart.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElRow: typeof import('element-plus/es')['ElRow']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
+    LineChart: typeof import('./src/components/LineChart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheDashboard: typeof import('./src/components/TheDashboard.vue')['default']
+    TheDashboardCardHeader: typeof import('./src/components/TheDashboardCardHeader.vue')['default']
+    TheDashboardChart: typeof import('./src/components/TheDashboardChart.vue')['default']
+    TheDashboardLegend: typeof import('./src/components/TheDashboardLegend.vue')['default']
+    TheHeading: typeof import('./src/components/TheHeading.vue')['default']
+    TheSidebar: typeof import('./src/components/TheSidebar.vue')['default']
   }
 }

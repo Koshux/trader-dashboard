@@ -1,0 +1,31 @@
+{
+  "base_currency": "EUR",
+  "end_date": "2019-10-10",
+  "endpoint": "timeseries",
+  "quote_currency": "USD",
+  "quotes": [
+    {
+      "close": 1.09331,
+      "date": "2019-10-01",
+      "high": 1.09437,
+      "low": 1.0879,
+      "open": 1.08991
+    },
+    {
+      "close": 1.09591,
+      "date": "2019-10-02",
+      "high": 1.09638,
+      "low": 1.09039,
+      "open": 1.09331
+    },
+    {
+      "close": 1.10055,
+      "date": "2019-10-10",
+      "high": 1.10341,
+      "low": 1.09702,
+      "open": 1.09711
+    }
+  ],
+  "request_time": "Thu, 31 Oct 2019 15:34:09 GMT",
+  "start_date": "2019-10-01"
+}
