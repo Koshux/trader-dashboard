@@ -23,8 +23,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'https://api.tradermade.com/v1',
+      '/v1': {
+        target: 'https://marketdata.tradermade.com/api/v1',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }

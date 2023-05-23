@@ -2,6 +2,15 @@
   <!-- Create 5 buttons that will display in the order as follows: 15M, 1H, 1D, 1W, 1M -->
   <div class="card-header-title-buttons">
     <el-button
+      v-for="timeFrame in dashboardStore.timeFrames"
+      :key="timeFrame.label"
+      :type="buttonType"
+      size="small"
+      @click="selectTimeFrame(timeFrame)"
+    >
+      {{ timeFrame.label }}
+    </el-button>
+    <!-- <el-button
       :type="buttonType"
       size="small"
       @click="selectTimeFrame(dashboardStore.timeFrames.fifteenMinutes.value)"
@@ -35,27 +44,30 @@
       @click="selectTimeFrame(dashboardStore.timeFrames.oneMonth.value)"
     >
       {{ dashboardStore.timeFrames.oneMonth.label }}
-    </el-button>
+    </el-button> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useDashboardStore } from '@/stores/dashboard'
+import type { TimeFrame } from '@/types/TimeFrame';
 import { computed, type ComputedRef } from 'vue';
 
 const dashboardStore = useDashboardStore()
 
-const selectTimeFrame = (timeFrame: string) => {
+const selectTimeFrame = (timeFrame: TimeFrame) => {
   dashboardStore.selectedTimeFrame = timeFrame
 }
 
 const buttonType: ComputedRef<string> = computed(() => {
   // Go through each time frame and check if it is selected
   // If it is selected, return primary, otherwise return default
-  for (const timeFrame in dashboardStore.timeFrames) {
-    if (dashboardStore.timeFrames[timeFrame] === dashboardStore.selectedTimeFrame) {
-      return 'primary'
-    }
+  const selectedTimeFrameLabel = dashboardStore.selectedTimeFrame.label ?? ''
+  const timeFrames = Object.values(dashboardStore.timeFrames)
+  const selectedTimeFrame = timeFrames.find((timeFrame) => timeFrame.label === selectedTimeFrameLabel)
+
+  if (selectedTimeFrame) {
+    return 'primary'
   }
 
   return 'default'

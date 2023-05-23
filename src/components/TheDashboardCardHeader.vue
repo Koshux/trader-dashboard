@@ -92,6 +92,7 @@ const priceDifferencePercentageFormatted = computed(() => dashboardStore.priceDi
 
 .card-header-subtitle-price-difference-value {
   font-weight: bold;
+  margin-right: 0.1rem;
 }
 
 .card-header-subtitle-price-difference-percentage {

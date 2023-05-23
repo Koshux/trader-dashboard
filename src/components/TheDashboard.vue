@@ -55,7 +55,7 @@ onMounted(async () => {
 })
 
 watch(() => dashboardStore.currencyPair, async () => {
-  await dashboardStore.getCurrencyPairPrice(
+  await dashboardStore.getTimeseries(
     dashboardStore.form.firstCurrency,
     dashboardStore.form.secondCurrency
   )
