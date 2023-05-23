@@ -191,12 +191,9 @@ export const useDashboardStore = defineStore('dashboard', () => {
     selectedTimeFrame.value.type = 'primary'
   }
 
-  watch([form.firstCurrency, form.secondCurrency, selectedTimeFrame], () => {
-    console.log('watch', selectedTimeFrame)
-    if (form.firstCurrency && form.secondCurrency && selectedTimeFrame) {
-      // getCurrencyPairPrice(form.firstCurrency, form.secondCurrency)
+  watch([firstCurrency, secondCurrency, selectedTimeFrame], () => {
+    if (firstCurrency.value && secondCurrency.value && selectedTimeFrame) {
       getTimeseries(form.firstCurrency, form.secondCurrency)
-
     }
   })
 
