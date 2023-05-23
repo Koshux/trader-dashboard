@@ -4,4 +4,5 @@ export interface TimeFrame {
   label?: string
   period?: string
   start_date?: string | (() => string)
+  type?: string
 }

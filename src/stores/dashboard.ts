@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import type { CurrencyPair } from '@/types/CurrencyPair'
 import payloadLiveCurrencies from '@/stores/live-currencies-payload.json'
 import payloadTimeSeries from '@/stores/timeseries-payload.json'
-import type { TimeSeries } from '@/types/TimeSeries'
+// import type { TimeSeries } from '@/types/TimeSeries'
 import type { Quote } from '@/types/Quote'
 import { DateAndTime } from '@/enums/date-and-time'
 import type { TimeFrame } from '@/types/TimeFrame'
@@ -32,7 +32,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
     period: DateAndTime.fifteenMinutesPeriod as const,
     start_date: new Date(new Date().getMilliseconds() - 15 * DateAndTime.MS_PER_MINUTE)
       .toISOString()
-      .slice(0, 10)
+      .slice(0, 10),
+    type: 'primary'
   }, {
     end_date: new Date().toISOString().slice(0, 10),
     interval: DateAndTime.oneHourInterval as const,
@@ -40,7 +41,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
     period: DateAndTime.none as const,
     start_date: new Date(new Date().getMilliseconds() - 60 * DateAndTime.MS_PER_MINUTE)
       .toISOString()
-      .slice(0, 10)
+      .slice(0, 10),
+    type: 'default'
   }, {
     end_date: new Date().toISOString().slice(0, 10),
     interval: DateAndTime.oneDayInterval as const,
@@ -52,7 +54,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
       return new Date(date.setMonth(date.getDate() - 1))
         .toISOString()
         .slice(0, 10)
-    }
+    },
+    type: 'default'
   }, {
     end_date: new Date().toISOString().slice(0, 10),
     interval: DateAndTime.oneWeekInterval as const,
@@ -64,7 +67,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
       return new Date(date.setMonth(date.getDate() - 7))
         .toISOString()
         .slice(0, 10)
-    }
+    },
+    type: 'default'
   }, {
     end_date: new Date().toISOString().slice(0, 10),
     interval: DateAndTime.oneMonthInterval as const,
@@ -76,7 +80,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
       return new Date(date.setMonth(date.getMonth() - 1))
         .toISOString()
         .slice(0, 10)
-    }
+    },
+    type: 'default'
   }]
 
   const form = {
@@ -177,6 +182,15 @@ export const useDashboardStore = defineStore('dashboard', () => {
     })
   }
 
+  const setSelectedTimeFrame = (timeFrame: TimeFrame) => {
+    for (const frame of timeFrames) {
+      frame.type = 'default'
+    }
+
+    selectedTimeFrame.value = timeFrame
+    selectedTimeFrame.value.type = 'primary'
+  }
+
   watch([form.firstCurrency, form.secondCurrency, selectedTimeFrame], () => {
     console.log('watch', selectedTimeFrame)
     if (form.firstCurrency && form.secondCurrency && selectedTimeFrame) {
@@ -198,9 +212,9 @@ export const useDashboardStore = defineStore('dashboard', () => {
     currencyPair,
     getCurrencyPair,
     getLiveCurrenciesList,
-    // getCurrencyPairPrice,
     getTimeseries,
     timeFrames,
-    selectedTimeFrame
+    selectedTimeFrame,
+    setSelectedTimeFrame
   }
 })

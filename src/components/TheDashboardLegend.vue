@@ -4,9 +4,9 @@
     <el-button
       v-for="timeFrame in dashboardStore.timeFrames"
       :key="timeFrame.label"
-      :type="buttonType"
+      :type="timeFrame.type"
       size="small"
-      @click="selectTimeFrame(timeFrame)"
+      @click="dashboardStore.setSelectedTimeFrame(timeFrame)"
     >
       {{ timeFrame.label }}
     </el-button>
@@ -51,27 +51,27 @@
 <script lang="ts" setup>
 import { useDashboardStore } from '@/stores/dashboard'
 import type { TimeFrame } from '@/types/TimeFrame';
-import { computed, type ComputedRef } from 'vue';
+// import { computed, type ComputedRef } from 'vue';
 
 const dashboardStore = useDashboardStore()
 
 const selectTimeFrame = (timeFrame: TimeFrame) => {
-  dashboardStore.selectedTimeFrame = timeFrame
+  dashboardStore.setSelectedTimeFrame(timeFrame)
 }
 
-const buttonType: ComputedRef<string> = computed(() => {
-  // Go through each time frame and check if it is selected
-  // If it is selected, return primary, otherwise return default
-  const selectedTimeFrameLabel = dashboardStore.selectedTimeFrame.label ?? ''
-  const timeFrames = Object.values(dashboardStore.timeFrames)
-  const selectedTimeFrame = timeFrames.find((timeFrame) => timeFrame.label === selectedTimeFrameLabel)
+// watch(() => dashboardStore.selectedTimeFrame, () => {
+//   // Go through each time frame and check if it is selected
+//   // If it is selected, return primary, otherwise return default
+//   const selectedTimeFrameLabel = dashboardStore.selectedTimeFrame.label ?? ''
+//   const timeFrames = Object.values(dashboardStore.timeFrames)
+//   const selectedTimeFrame: TimeFrame | undefined = timeFrames.find((timeFrame) => timeFrame.label === selectedTimeFrameLabel)
 
-  if (selectedTimeFrame) {
-    return 'primary'
-  }
+//   console.log('selectedTimeFrame', selectedTimeFrame)
+//   console.log('selectedTimeFrame label', selectedTimeFrame?.label)
+//   if (!selectedTimeFrame) return
 
-  return 'default'
-})
+//   selectTimeFrame.type = 'primary'
+// })
 </script>
 
 <style scoped>
