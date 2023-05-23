@@ -1,4 +1,4 @@
-export enum DateAndTime {
+export enum TimeFrameAttributes {
   fifteenMinutes = '15M',
   oneHour = '1H',
   oneDay = '1D',
@@ -20,4 +20,6 @@ export enum DateAndTime {
 
   MS_PER_MINUTE = 60000,
 
+  BTN_TYPE_DEFAULT = 'default',
+  BTN_TYPE_PRIMARY = 'primary',
 }

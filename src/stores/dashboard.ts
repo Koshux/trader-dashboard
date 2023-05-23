@@ -1,11 +1,11 @@
-import { computed, reactive, ref, type ComputedRef, watch, type Ref } from 'vue'
+import { computed, reactive, ref, type ComputedRef, watch, type Ref, onBeforeMount } from 'vue'
 import { defineStore } from 'pinia'
 import type { CurrencyPair } from '@/types/CurrencyPair'
 import payloadLiveCurrencies from '@/stores/live-currencies-payload.json'
 import payloadTimeSeries from '@/stores/timeseries-payload.json'
 // import type { TimeSeries } from '@/types/TimeSeries'
 import type { Quote } from '@/types/Quote'
-import { DateAndTime } from '@/enums/date-and-time'
+import { TimeFrameAttributes } from '@/enums/date-and-time'
 import type { TimeFrame } from '@/types/TimeFrame'
 
 export const useDashboardStore = defineStore('dashboard', () => {
@@ -23,31 +23,31 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
   const firstCurrency = ref('')
   const secondCurrency = ref('')
-  const selectedTimeFrame: Ref<TimeFrame> = ref({})
+  const selectedTimeFrame: Ref<TimeFrame> = ref({} as TimeFrame)
 
   const timeFrames: TimeFrame[] = [{
     end_date: new Date().toISOString().slice(0, 10),
-    interval: DateAndTime.fifteenMinutesInterval as const,
-    label: DateAndTime.fifteenMinutes as const,
-    period: DateAndTime.fifteenMinutesPeriod as const,
-    start_date: new Date(new Date().getMilliseconds() - 15 * DateAndTime.MS_PER_MINUTE)
+    interval: TimeFrameAttributes.fifteenMinutesInterval as const,
+    label: TimeFrameAttributes.fifteenMinutes as const,
+    period: TimeFrameAttributes.fifteenMinutesPeriod as const,
+    start_date: new Date(new Date().getMilliseconds() - 15 * TimeFrameAttributes.MS_PER_MINUTE)
       .toISOString()
       .slice(0, 10),
-    type: 'primary'
+    type: TimeFrameAttributes.BTN_TYPE_DEFAULT as const
   }, {
     end_date: new Date().toISOString().slice(0, 10),
-    interval: DateAndTime.oneHourInterval as const,
-    label: DateAndTime.oneHour as const,
-    period: DateAndTime.none as const,
-    start_date: new Date(new Date().getMilliseconds() - 60 * DateAndTime.MS_PER_MINUTE)
+    interval: TimeFrameAttributes.oneHourInterval as const,
+    label: TimeFrameAttributes.oneHour as const,
+    period: TimeFrameAttributes.none as const,
+    start_date: new Date(new Date().getMilliseconds() - 60 * TimeFrameAttributes.MS_PER_MINUTE)
       .toISOString()
       .slice(0, 10),
-    type: 'default'
+    type: TimeFrameAttributes.BTN_TYPE_DEFAULT as const
   }, {
     end_date: new Date().toISOString().slice(0, 10),
-    interval: DateAndTime.oneDayInterval as const,
-    label: DateAndTime.oneDay as const,
-    period: DateAndTime.oneHourPeriod as const,
+    interval: TimeFrameAttributes.oneDayInterval as const,
+    label: TimeFrameAttributes.oneDay as const,
+    period: TimeFrameAttributes.oneHourPeriod as const,
     start_date: () => {
       const date = new Date()
 
@@ -55,12 +55,12 @@ export const useDashboardStore = defineStore('dashboard', () => {
         .toISOString()
         .slice(0, 10)
     },
-    type: 'default'
+    type: TimeFrameAttributes.BTN_TYPE_DEFAULT as const
   }, {
     end_date: new Date().toISOString().slice(0, 10),
-    interval: DateAndTime.oneWeekInterval as const,
-    label: DateAndTime.oneWeek as const,
-    period: DateAndTime.oneWeekPeriod as const,
+    interval: TimeFrameAttributes.oneWeekInterval as const,
+    label: TimeFrameAttributes.oneWeek as const,
+    period: TimeFrameAttributes.oneWeekPeriod as const,
     start_date: () => {
       const date = new Date()
 
@@ -68,12 +68,12 @@ export const useDashboardStore = defineStore('dashboard', () => {
         .toISOString()
         .slice(0, 10)
     },
-    type: 'default'
+    type: TimeFrameAttributes.BTN_TYPE_DEFAULT as const
   }, {
     end_date: new Date().toISOString().slice(0, 10),
-    interval: DateAndTime.oneMonthInterval as const,
-    label: DateAndTime.oneMonth as const,
-    period: DateAndTime.oneMonthPeriod as const,
+    interval: TimeFrameAttributes.oneMonthInterval as const,
+    label: TimeFrameAttributes.oneMonth as const,
+    period: TimeFrameAttributes.oneMonthPeriod as const,
     start_date: () => {
       const date = new Date()
 
@@ -81,7 +81,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
         .toISOString()
         .slice(0, 10)
     },
-    type: 'default'
+    type: TimeFrameAttributes.BTN_TYPE_DEFAULT as const
   }]
 
   const form = {
@@ -98,6 +98,10 @@ export const useDashboardStore = defineStore('dashboard', () => {
       secondCurrency.value = value
     }
   }
+
+  const currencyPair: ComputedRef<string> = computed(() => {
+    return `${form.firstCurrency}/${form.secondCurrency}`
+  })
 
   const currentPriceFormatted: ComputedRef<string | undefined> = computed(() => {
     if (!form.secondCurrency) return
@@ -118,8 +122,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
     return `${percentage.toFixed(6)} %`
   })
 
-  const currencyPair: ComputedRef<string> = computed(() => {
-    return `${form.firstCurrency}/${form.secondCurrency}`
+  onBeforeMount(() => {
+    setSelectedTimeFrame(timeFrames[0]) // 15 minutes
   })
 
   const getCurrencyPair = (firstCurrency: string, secondCurrency: string) => {
@@ -128,7 +132,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
   const getLiveCurrenciesList = async () => {
     // const url = `/v1/live_currencies_list?api_key=${import.meta.env.VITE_APP_TRADERMADE_API_KEY}`
-    // fetch(url)
+    // await fetch(url)
     //   .then(response => response.json())
     //   .then(data => {
     //     console.log(data)
@@ -152,14 +156,14 @@ export const useDashboardStore = defineStore('dashboard', () => {
       })
   }
 
-  const getTimeseries = (firstCurrency: string, secondCurrency: string) => {
+  const getTimeseries = async (firstCurrency: string, secondCurrency: string) => {
     // Daily: start_date=2019-10-01&end_date=2019-10-10
     // Hourly: start_date=2023-05-19-00:00&end_date=2023-05-22-22:51&format=records&interval=hourly&period=1
     // Minutes: start_date=2023-05-19-00:00&end_date=2023-05-22-22:51&format=records&interval=minute&period=15
 
     // const currencyPair = getCurrencyPair(firstCurrency, secondCurrency)
     // const url = `/v1/timeseries?api_key=${import.meta.env.VITE_APP_TRADERMADE_API_KEY}&currency=${currencyPair}&start_date=2021-01-01&end_date=2021-01-02&format=records`
-    // fetch(url)
+    // await fetch(url)
     //   .then(response => response.json())
     //   .then(data => {
     //     console.log(data)
@@ -168,8 +172,10 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
     historicalPeriod.value = payloadTimeSeries.quotes as Quote[]
     payloadTimeSeries.quotes.forEach((quote: any) => {
-      if (quote.date !== '2021-01-01') {
+      if (quote.date !== selectedTimeFrame.value.end_date) {
+        console.log('what:', quote.date !== selectedTimeFrame.value.end_date)
         console.log('is not end_date:', quote.date)
+        console.log('selectedTimeFrame.value.end_date:', selectedTimeFrame.value.end_date)
         return
       }
 
@@ -184,11 +190,11 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
   const setSelectedTimeFrame = (timeFrame: TimeFrame) => {
     for (const frame of timeFrames) {
-      frame.type = 'default'
+      frame.type = TimeFrameAttributes.BTN_TYPE_DEFAULT as const
     }
 
     selectedTimeFrame.value = timeFrame
-    selectedTimeFrame.value.type = 'primary'
+    selectedTimeFrame.value.type = TimeFrameAttributes.BTN_TYPE_PRIMARY as const
   }
 
   watch([firstCurrency, secondCurrency, selectedTimeFrame], () => {
